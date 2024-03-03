@@ -1,0 +1,19 @@
+{
+  "name": "date-picker",
+  "private": true,
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "pnpm --filter date-picker build",
+    "dev": "pnpm --filter date-picker build --watch",
+    "website": "pnpm --filter date-picker-website dev",
+    "preinstall": "npx only-allow pnpm"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "tsup": "^8.0.2"
+  }
+}
