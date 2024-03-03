@@ -8,12 +8,15 @@
     "build": "pnpm --filter date-picker build",
     "dev": "pnpm --filter date-picker build --watch",
     "website": "pnpm --filter date-picker-website dev",
-    "preinstall": "npx only-allow pnpm"
+    "preinstall": "npx only-allow pnpm",
+    "format": "prettier '**/*.{js,jsx,ts,tsx,json,md,mdx,css,scss,yaml,yml}' --write",
+    "test:format": "prettier '**/*.{js,jsx,ts,tsx,json,md,mdx,css,scss,yaml,yml}' --check"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "prettier": "^3.2.5",
     "tsup": "^8.0.2"
   }
 }

@@ -1,4 +1,4 @@
-import { defineConfig } from "tsup";
+import { defineConfig } from "tsup"
 
 export default defineConfig({
   sourcemap: false,
@@ -8,4 +8,4 @@ export default defineConfig({
   loader: {
     ".js": "jsx",
   },
-});
+})
