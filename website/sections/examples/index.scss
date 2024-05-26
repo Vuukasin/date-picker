@@ -1,0 +1,154 @@
+@keyframes shine {
+  to {
+    background-position: 200% center;
+    opacity: 0;
+  }
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: #111;
+  opacity: 0.975;
+}
+
+.content:after {
+  content: "";
+  z-index: -1;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  opacity: 0.4;
+  filter: invert(1);
+  pointer-events: none;
+}
+
+.oneMonth {
+  [date-picker-root] {
+    box-shadow: rgb(0 0 0 / 10%) 0px 5px 30px -5px;
+    outline-width: 0;
+    background-color: rgba(0, 0, 0, 0.45);
+    border-radius: 8px;
+    max-width: 320px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 16px;
+    cursor: default;
+
+    [date-picker-prev-month-control],
+    [date-picker-next-month-control] {
+      cursor: pointer;
+      color: rgb(227, 228, 232);
+      font-size: 1.4rem;
+      font-weight: 400;
+      outline: none;
+    }
+
+    [date-picker-control-buttons] {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+    }
+
+    [date-picker-heading] {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 36px;
+      align-items: center;
+    }
+
+    [date-picker-date-heading] {
+      color: rgb(227, 228, 232);
+      font-size: 0.8125rem;
+      font-weight: 500;
+    }
+
+    [date-picker-months-wrapper] {
+      display: grid;
+      grid-template-columns: repeat(1, minmax(0, 1fr));
+      outline: none;
+    }
+
+    [date-picker-month-days] {
+      display: grid;
+      gap: 8px;
+      grid-template-columns: repeat(7, minmax(0, 1fr));
+    }
+
+    [date-picker-weekdays] {
+      display: grid;
+      width: 100%;
+      grid-template-columns: repeat(7, minmax(0, 1fr));
+      margin-bottom: 10px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+    }
+
+    [date-picker-weekday] {
+      display: inline-flex;
+      height: 26px;
+      width: 26px;
+      padding: 10px;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 0.8125rem;
+      font-weight: 400;
+      color: rgb(93, 94, 97);
+      border: 1px solid rgba(0, 0, 0, 0.3);
+      border-radius: 100%;
+      margin: 5px;
+    }
+
+    [date-picker-day] {
+      display: inline-flex;
+      height: 26px;
+      user-select: none;
+      width: 26px;
+      padding: 10px;
+      align-items: center;
+      justify-content: center;
+      cursor: default;
+      font-size: 0.8125rem;
+      color: rgb(227, 228, 232);
+      border: 1px solid rgba(0, 0, 0, 0.3);
+      border-radius: 100%;
+      margin: 5px;
+    }
+
+    [data-focused="true"] {
+      border: 1px solid rgba(100, 102, 216, 0.9);
+    }
+
+    [data-selected="true"][data-range="true"] {
+      background: rgb(100, 102, 216);
+    }
+
+    [data-range="true"][data-focused="true"] {
+      background: rgb(100, 102, 216);
+    }
+
+    [data-selected="true"][data-focused="true"] {
+      border: 1px solid rgba(255, 255, 255, 0.375);
+    }
+
+    [data-selected="true"] {
+      background-color: rgb(100, 102, 216);
+      color: rgba(255, 255, 255, 1);
+    }
+
+    [data-range="true"][data-selected="false"][data-focused="false"] {
+      color: rgba(255, 255, 255, 1);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+    }
+
+    [data-disabled="true"] {
+      pointer-events: none;
+      color: rgb(93, 94, 97);
+    }
+  }
+}

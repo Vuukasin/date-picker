@@ -1,0 +1,108 @@
+.switcher {
+  display: grid;
+  grid-template-columns: repeat(3, 100px);
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  position: relative;
+
+  button {
+    height: 32px;
+    line-height: 32px;
+    display: flex;
+    align-items: center;
+    margin: auto;
+    gap: 8px;
+    padding: 0 16px;
+    border-radius: 9999px;
+    color: #969696;
+    font-size: 14px;
+    cursor: pointer;
+    user-select: none;
+    position: relative;
+    text-transform: capitalize;
+
+    &:hover {
+      color: #fff;
+    }
+
+    &:active {
+      transform: scale(0.96);
+      color: #fff;
+    }
+
+    &:focus-visible {
+      outline: 0;
+    }
+
+    &[data-selected="true"] {
+      color: white;
+
+      &:hover .activeTheme {
+        background: transparent;
+      }
+    }
+  }
+
+  .activeTheme {
+    border-radius: 9999px;
+    position: absolute;
+    height: 32px;
+    width: 100%;
+    top: 0;
+    color: red;
+    left: 0;
+
+    &::before {
+      content: "";
+      background-color: rgba(255, 255, 255, 1);
+      mask-image: linear-gradient(90deg, transparent, #fff 4rem, #fff calc(100% - 20px), transparent);
+      position: absolute;
+      height: 1px;
+      top: 0;
+      left: -4px;
+      height: 1px;
+      width: calc(100% + 8px);
+    }
+
+    &::after {
+      content: "";
+      background-color: #4e4e4e;
+      mask-image: linear-gradient(90deg, transparent, #fff 4rem, #fff calc(100% - 4rem), transparent);
+      position: absolute;
+      height: 1px;
+      bottom: 0;
+      left: -4px;
+      height: 1px;
+      width: calc(100% + 8px);
+    }
+  }
+}
+
+.switcherLight {
+  pointer-events: none;
+  height: 32px;
+  width: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+
+  &::before {
+    content: "";
+    inset: 0;
+    position: absolute;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(to bottom, #2e2e2e, #111);
+    mask:
+      linear-gradient(black, black) content-box,
+      linear-gradient(black, black);
+    mask-composite: exclude;
+    transform: translateZ(0);
+
+    mask: none;
+    mask-composite: none;
+    opacity: 0.2;
+    backdrop-filter: blur(20px);
+  }
+}

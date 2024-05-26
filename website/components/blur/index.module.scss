@@ -1,0 +1,17 @@
+.blur {
+  mask-image: linear-gradient(to bottom, #111, 25%, transparent);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  margin-bottom: -96px;
+  opacity: 0.95;
+  height: 96px;
+  backdrop-filter: blur(8px);
+}
+
+.blur::after {
+  background: #1a1a1a;
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, #111, transparent);
+}

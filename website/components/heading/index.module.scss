@@ -1,0 +1,40 @@
+.wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.light {
+  pointer-events: none;
+  height: calc(100% + 32px);
+  width: calc(100% + 32px);
+  position: absolute;
+  top: -16px;
+  left: -16px;
+
+  border-radius: 16px;
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+
+    backdrop-filter: blur(10px);
+    opacity: 0.22;
+    transform: translateZ(0);
+  }
+}
+
+.heading {
+  font-size: 1.875rem;
+  font-weight: 700;
+  text-align: start;
+  color: #fff;
+}
+
+.subheading {
+  font-size: 1.125rem;
+  font-weight: 700;
+  text-align: start;
+  color: #fff;
+}

@@ -1,0 +1,27 @@
+.mainGrid {
+  display: grid;
+  grid-template-columns: 192px 640px 192px;
+  color: white;
+  column-gap: 32px;
+  justify-content: center;
+  width: 100%;
+}
+
+.mainGrid > * {
+  grid-column: 2;
+}
+
+@media (max-width: 1024px) {
+  .mainGrid {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    max-width: 640px;
+  }
+}
+
+@media (max-width: 1088) {
+  .mainGrid {
+    grid-template-columns: auto 640px auto;
+  }
+}

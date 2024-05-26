@@ -1,0 +1,33 @@
+.line4 {
+  min-height: 100vh;
+  height: 100%;
+  width: calc(100% + 32px);
+  position: absolute;
+  top: -16px;
+  left: -16px;
+
+  border-radius: 16px 16px 0 0;
+  --size: 1px;
+  --gradient: linear-gradient(to top, var(--gray1), var(--gray7));
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: var(--size);
+    background: linear-gradient(to top, var(--gray1), var(--gray7));
+    mask:
+      linear-gradient(black, black) content-box,
+      linear-gradient(black, black);
+    mask-composite: exclude;
+    transform: translateZ(0);
+
+    @media (prefers-color-scheme: dark) {
+      mask: none;
+      mask-composite: none;
+      opacity: 0.2;
+      backdrop-filter: blur(20px);
+    }
+  }
+}

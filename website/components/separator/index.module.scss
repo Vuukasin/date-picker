@@ -1,0 +1,15 @@
+.wrapper {
+  width: 100%;
+  height: 4px;
+  position: relative;
+  max-width: 640px;
+}
+
+.line {
+  height: 1px;
+  width: 100%;
+  background-color: #4e4e4e;
+  mask-image: linear-gradient(90deg, transparent, #fff 4rem, #fff calc(100% - 4rem), transparent);
+  position: absolute;
+  top: 0;
+}
