@@ -1,1 +1,1 @@
-// date-picker root
+export * from "./DatePicker";
