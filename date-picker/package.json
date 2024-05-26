@@ -1,7 +1,6 @@
 {
   "name": "date-picker",
   "version": "1.0.0",
-  "description": "",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
@@ -17,7 +16,8 @@
   },
   "scripts": {
     "build": "tsup src",
-    "dev": "tsup src --watch"
+    "dev": "tsup src --watch",
+    "clean": "rm -rf dist node_modules"
   },
   "keywords": [],
   "author": "",
@@ -26,8 +26,9 @@
     "@types/react": "^18.2.61"
   },
   "peerDependencies": {
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react": "^18",
+    "react-dom": "^18"
   },
-  "sideEffects": false
+  "sideEffects": false,
+  "dependencies": {}
 }
