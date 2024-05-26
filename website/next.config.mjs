@@ -2,6 +2,7 @@
 const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
-}
+  transpilePackages: ["date-picker"],
+};
 
-export default nextConfig
+export default nextConfig;
