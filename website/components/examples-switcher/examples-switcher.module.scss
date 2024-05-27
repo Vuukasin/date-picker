@@ -80,6 +80,12 @@
   }
 }
 
+@media (max-width: 689px) {
+  .switcher {
+    gap: 0px;
+  }
+}
+
 .switcherLight {
   pointer-events: none;
   height: 32px;

@@ -79,7 +79,7 @@ const MonthsWrapper = () => {
 
 const DatePickerDemo = () => {
     return (
-        <DatePicker mode="single" fixedWeeks fixedWeeks>
+        <DatePicker mode="single" fixedWeeks>
             <MonthsWrapper />
         </DatePicker>
     );

@@ -5,6 +5,8 @@ import { toast } from "sonner";
 import CalendarIcon from "@/components/icons/Calendar";
 import { MonthsDropdown } from "./WithMonthsDropdown";
 import Code from "@/components/code";
+import ChevronLeft from "@/components/icons/ChevronLeft";
+import ChevronRight from "@/components/icons/ChevronRight";
 
 const DatePickerPopover = () => {
   const ref = React.useRef<HTMLDivElement | null>(null);
@@ -41,7 +43,17 @@ const DatePickerPopover = () => {
                 setOpen(false);
               }}
             >
-              <MonthsDropdown focusOnClose={focusOnClose} />
+              <div className="flex justify-between items-center">
+                <MonthsDropdown focusOnClose={focusOnClose} />
+                <div className="flex gap-1 items-center">
+                  <DatePicker.PrevMonthTrigger>
+                    <ChevronLeft />
+                  </DatePicker.PrevMonthTrigger>
+                  <DatePicker.NextMonthTrigger>
+                    <ChevronRight />
+                  </DatePicker.NextMonthTrigger>
+                </div>
+              </div>
               <DatePicker.MonthsWrapper />
             </DatePicker>
           </PopoverPimitives.Content>
@@ -70,7 +82,7 @@ const DatePickerPopover = () => {
 
   function focusOnClose(event: Event) {
     event.preventDefault();
-    ref.current?.focus({ preventScroll: true });
+    ref.current?.focus();
   }
   
   return (

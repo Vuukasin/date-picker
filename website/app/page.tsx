@@ -15,6 +15,7 @@ import { cn } from "@/utils/cn";
 import dynamic from "next/dynamic";
 import packageJSON from "../../date-picker/package.json";
 import datePickerStyles from "../styles/date-picker.module.scss";
+import copy from "copy-to-clipboard";
 
 const APIReference = dynamic(() => import("@/sections/ApiReference"), { ssr: true });
 const Parts = dynamic(() => import("@/sections/Parts"), { ssr: true });
@@ -25,11 +26,17 @@ const Page = () => {
 
   const [mode, setMode] = React.useState<TMode>("single");
 
+  const changeMode = (m: TMode) => {
+    setSingleSelected(undefined);
+    setMultipleSelected([]);
+    setRangeSelected([]);
+    setMode(m);
+  };
+
   React.useEffect(() => {
-    ref.current?.focus({ preventScroll: false });
+    ref.current?.focus({ preventScroll: true });
   }, [mode]);
 
-  // const [selected, setSelected] = React.useState<Date | Date[]>();
   const [singleSelected, setSingleSelected] = React.useState<Date>();
   const [rangeSelected, setRangeSelected] = React.useState<Date[]>([]);
   const [multipleSelected, setMultipleSelected] = React.useState<Date[]>([]);
@@ -48,13 +55,16 @@ const Page = () => {
           Fast, unstyled, keyboard accessible date picker for React.
         </span>
 
-        <div className="flex flex-col gap-4 md:flex-row mt-8 justify-between items-center w-full">
-          <Link href="https://github.com/vuukasin" className="flex items-center gap-2">
+        <div className="flex flex-col gap-4 sm:flex-row mt-8 justify-between items-center w-full">
+          <Link href="https://github.com/vuukasin/date-picker" className="flex items-center gap-2">
             <GitHubIcon />
-            <span className="text-[rgba(227,228,230)] text-[0.875rem]">vuukasin/{"<undefined>"}</span>
+            <span className="text-[rgba(227,228,230)] text-[0.875rem]">vuukasin/date-picker</span>
           </Link>
 
-          <button className="bg-[rgba(29,31,36)] text-[0.875rem] text-[#a0a0a0] p-[0px_8px_0px_16px] cursor-copy font-[500] gap-4 flex items-center h-10 rounded-full will-change-transform duration-150">
+          <button
+            onClick={() => copy("npm install <undefined>")}
+            className="bg-[rgba(29,31,36)] text-[0.875rem] text-[#a0a0a0] p-[0px_8px_0px_16px] cursor-copy font-[500] gap-4 flex items-center h-10 rounded-full will-change-transform duration-150"
+          >
             npm install {"<undefined>"}
             <span className="flex items-center justify-center w-7 h-7 rounded-full bg-[#2e2e2e]">
               <CopyIcon />
@@ -69,7 +79,6 @@ const Page = () => {
             ref={ref}
             key="single"
             weekdays="short"
-            initialFocus={new Date(Date.now() - 44 * 24 * 60 * 60 * 1000)}
             fixedWeeks
             lastMonthControl
             selected={singleSelected}
@@ -149,7 +158,7 @@ const Page = () => {
         )}
       </section>
 
-      <ModeContext.Provider value={{ mode, setMode }}>
+      <ModeContext.Provider value={{ mode, setMode: changeMode }}>
         <ModeSwitcher />
       </ModeContext.Provider>
 
@@ -194,22 +203,3 @@ const Page = () => {
 };
 
 export default Page;
-
-type A = Record<
-  string,
-  (
-    ref: React.RefObject<HTMLDivElement>,
-    selected?: Date | Date[],
-    setSelected?: (value?: Date | Date[]) => void,
-  ) => React.ReactNode
->;
-
-// Optimizations for the multiple mode, cuz there is a huge performance drop when there is a lot of dates selected. On 5 selected dates
-// performance starts to drop, and on 10 selected dates it is unusable. This is because of the way date picker is designed to check for
-// selected dates, it is O(n) operation. So to optimize this, I will use refs to store a month ids where dates are selected, and simply before
-// checking if date is selected, I will check if month contains selected dates. This will reduce the complexity, and performance drop will be
-// minimal. And there will be only
-
-// Conver the array of selected dates to set, and use selectedSet.has(dateString)
-
-// add example with months dropdown in MonthsWrapper docs

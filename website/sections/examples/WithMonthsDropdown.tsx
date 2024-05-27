@@ -14,6 +14,8 @@ import * as React from "react";
 import { cn } from "@/utils/cn";
 import Code from "@/components/code";
 import dpStyles from "@/styles/date-picker.module.scss";
+import ChevronLeft from "@/components/icons/ChevronLeft";
+import ChevronRight from "@/components/icons/ChevronRight";
 
 const months = "January_February_March_April_May_June_July_August_September_October_November_December".split("_");
 
@@ -41,7 +43,7 @@ const MonthsDropdown = ({ focusOnClose }: { focusOnClose?: (event: Event) => voi
         className="text-white px-1 w-fit focus:outline-white rounded-sm focus-within:outline-none ring-0 flex gap-1 items-center"
       >
         <span className="text-[0.875rem] text-white">{`${months[displayedMonth]} ${displayedYear}`}</span>
-        <ChevronDownIcon className="fill-white" />
+        <ChevronDownIcon />
       </DropdownPrimitives.Trigger>
       <DropdownPrimitives.Portal>
         <DropdownPrimitives.Content
@@ -94,9 +96,9 @@ const WithMonthsDropdown = ({ monthCount }: { monthCount?: number }) => {
     <div className="flex w-full flex-col gap-20 justify-center items-center">
       <div className={dpStyles.mainDP}>
         <DatePicker
-          className="max-h-[356px] overflow-y-hidden"
           weekdays="short"
           monthCount={monthCount || 2}
+          lastMonthControl={true}
           tabIndex={0}
           mode="range"
           ref={ref}
@@ -139,7 +141,7 @@ const WithMonthsDropdown = ({ monthCount }: { monthCount?: number }) => {
 type TMonthProps = MonthProps & { focusOnClose: (event: Event) => void };
 
 const Month = React.forwardRef<HTMLDivElement, TMonthProps>((props, forwardedRef) => {
-  const { month, year, focusOnClose, ...etc } = props;
+  const { month, lastInView, year, focusOnClose, ...etc } = props;
   const firstRenderedMonth = useDatePicker((state) => state.month);
   const firstRenderedYear = useDatePicker((state) => state.year);
   const id = React.useId();
@@ -149,11 +151,23 @@ const Month = React.forwardRef<HTMLDivElement, TMonthProps>((props, forwardedRef
 
   return (
     <div id={id} ref={forwardedRef} date-picker-month="" {...etc}>
-      {firstRenderedMonth === month && firstRenderedYear === year ? (
-        <MonthsDropdown focusOnClose={focusOnClose} />
-      ) : (
-        <span className="text-[0.875rem] text-white">{`${months[month]} ${year}`}</span>
-      )}
+      <div className="flex justify-between items-center">
+        {firstRenderedMonth === month && firstRenderedYear === year ? (
+          <MonthsDropdown focusOnClose={focusOnClose} />
+        ) : (
+          <span className="text-[0.875rem] text-white">{`${months[month]} ${year}`}</span>
+        )}
+        {lastInView && (
+          <div className="flex gap-1 items-center">
+            <DatePicker.PrevMonthTrigger>
+              <ChevronLeft />
+            </DatePicker.PrevMonthTrigger>
+            <DatePicker.NextMonthTrigger>
+              <ChevronRight />
+            </DatePicker.NextMonthTrigger>
+          </div>
+        )}
+      </div>
       <DatePicker.WeekdaysHeading short />
       <div date-picker-month-days="" className="flex flex-col gap-2">
         {days.map((day, idx) => {
@@ -176,9 +190,17 @@ const MonthsWrapper = ({ focusOnClose }: { focusOnClose: (event: Event) => void 
 
   return (
     <div ref={context.monthsWrapperRef as React.RefObject<HTMLDivElement>} date-picker-months-wrapper="">
-      {Array.from({ length: context.monthCount || 4 }).map((_, idx) => {
+      {Array.from({ length: context.monthCount }).map((_, idx) => {
         const { month, year } = createMonthProps(m, y, idx);
-        return <Month focusOnClose={focusOnClose} key={idx} month={month} year={year} />;
+        return (
+          <Month
+            focusOnClose={focusOnClose}
+            key={idx}
+            lastInView={idx === context.monthCount - 1}
+            month={month}
+            year={year}
+          />
+        );
       })}
     </div>
   );
@@ -223,7 +245,7 @@ const DatePickerDemo = () => {
 
     function focusOnClose(event: Event) {
       event.preventDefault();
-      ref.current?.focus({ preventScroll: true });
+      ref.current?.focus();
     }
 
     return (

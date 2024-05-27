@@ -13,6 +13,12 @@
   font-size: 0.875rem;
 }
 
+@media (max-width: 440px) {
+  .popoverContent {
+    max-width: calc(100vw - 24px);
+  }
+}
+
 .iconButton {
   display: inline-flex;
   width: 20px;
