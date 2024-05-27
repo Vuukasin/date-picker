@@ -22,8 +22,8 @@ const useStore = () => React.useContext(StoreContext);
 
 type Context = {
   mode?: "single" | "range" | "multiple";
-  monthCount?: number;
-  startOfWeek?: number;
+  monthCount: number;
+  startOfWeek: number;
   monthsWrapperRef: React.RefObject<HTMLDivElement | null>;
   lastMonthControl?: boolean;
   weekdays?: "short" | "long";
@@ -711,8 +711,9 @@ type ButtonProps = React.ComponentPropsWithRef<"button">;
 interface MonthChangeTriggerProps extends ButtonProps {}
 
 const NextMonthTrigger = React.forwardRef<TriggerElement, MonthChangeTriggerProps>((props, forwardedRef) => {
-  const { maxDate, monthCount, monthsWrapperRef } = useDatePickerContext();
-  const { month, year } = useDatePicker((state) => state);
+  const { maxDate, monthCount } = useDatePickerContext();
+  const month = useDatePicker((state) => state.month);
+  const year = useDatePicker((state) => state.year);
   const store = useStore();
 
   const ref = React.useRef<HTMLButtonElement | null>(null);
@@ -750,7 +751,8 @@ NextMonthTrigger.displayName = "NextMonthTrigger";
 
 const PrevMonthTrigger = React.forwardRef<TriggerElement, MonthChangeTriggerProps>((props, forwardedRef) => {
   const { minDate, monthCount } = useDatePickerContext();
-  const { month, year } = useDatePicker((state) => state);
+  const month = useDatePicker((state) => state.month);
+  const year = useDatePicker((state) => state.year);
   const store = useStore();
   const ref = React.useRef<HTMLButtonElement | null>(null);
 
