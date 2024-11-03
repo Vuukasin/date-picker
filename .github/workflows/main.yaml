@@ -17,4 +17,5 @@ jobs:
           node-version: 20.x
           cache: "pnpm"
 
+      - run: pnpm --filter chrono-select install
       - run: pnpm --filter chrono-select ci
