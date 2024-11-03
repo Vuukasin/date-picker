@@ -25,12 +25,12 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@types/react": "^18.2.61"
+    "@types/react": "^18.2.61",
+    "typescript": "^5"
   },
   "peerDependencies": {
     "react": "^18",
     "react-dom": "^18"
   },
-  "sideEffects": false,
-  "dependencies": {}
+  "sideEffects": false
 }
