@@ -1,6 +1,6 @@
 import * as React from "react";
 import * as PopoverPimitives from "@radix-ui/react-popover";
-import { DatePicker } from "date-picker";
+import { DatePicker } from "chrono-select";
 import { toast } from "sonner";
 import CalendarIcon from "@/components/icons/Calendar";
 import { MonthsDropdown } from "./WithMonthsDropdown";
@@ -71,7 +71,7 @@ const DatePickerPopover = () => {
 const codeBlock = `
 import * as Popover from "@radix-ui/react-popover";
 import MonthsDropdown from "./MonthsDropdown"
-import { DatePicker } from "date-picker";
+import { DatePicker } from "chrono-select";
 import * as React from "react";
 
 const DatePickerPopover = () => {

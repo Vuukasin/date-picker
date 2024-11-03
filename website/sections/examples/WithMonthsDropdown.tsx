@@ -8,7 +8,7 @@ import {
   MonthProps,
   generateDays,
   createDayProps,
-} from "date-picker";
+} from "chrono-select";
 import ChevronDownIcon from "@/components/icons/ChevronDown";
 import * as React from "react";
 import { cn } from "@/utils/cn";
@@ -209,7 +209,7 @@ const MonthsWrapper = ({ focusOnClose }: { focusOnClose: (event: Event) => void 
 const codeBlock = `
 import * as Dropdown from "@radix-ui/react-dropdown-menu";
 import * as React from "react";
-import { DatePicker, useDatePicker, useStore } from "date-picker";
+import { DatePicker, useDatePicker, useStore } from "chrono-select";
 
 const months = "January_February_March_April_May_June_July_August_September_October_November_December".split("_");
 

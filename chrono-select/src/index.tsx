@@ -8,7 +8,7 @@ type State = {
 };
 
 type Store = {
-  subscibe: (callback: () => void) => () => void;
+  subscribe: (callback: () => void) => () => void;
   snapshot: () => State;
   setState: <K extends keyof State>(key: K, value: State[K], opts?: any) => void;
   emit: () => void;
@@ -110,7 +110,7 @@ const DatePicker = React.forwardRef<HTMLDivElement, DatePickerProps>((props, for
 
   const store: Store = React.useMemo(
     () => ({
-      subscibe: (cb) => {
+      subscribe: (cb) => {
         listeners.current.add(cb);
         return () => listeners.current.delete(cb);
       },
@@ -407,7 +407,7 @@ const DatePicker = React.forwardRef<HTMLDivElement, DatePickerProps>((props, for
     const index = new Date(state.current.focused).getDate() - 1;
     const nextMonthDays = nextMonth.querySelectorAll(VALID_DAY_SELECTOR);
     let newFocusedEl = nextMonthDays[index] || null;
-    // should test edge cases with min/max dates
+
     for (let i = 1; !newFocusedEl; i++) {
       newFocusedEl = nextMonthDays[index - i];
       if (i > 27) break;
@@ -436,7 +436,7 @@ const DatePicker = React.forwardRef<HTMLDivElement, DatePickerProps>((props, for
     const prevMonthDays = prevMonth.querySelectorAll(VALID_DAY_SELECTOR);
 
     let newFocusedEl: Element | null;
-    // should test edge cases with min/max dates
+
     for (let i = 1; !newFocusedEl; i++) {
       newFocusedEl = prevMonthDays[focusedDate - i];
       if (i > 27) break;
@@ -641,8 +641,7 @@ const Day = React.forwardRef<HTMLDivElement, DayProps>((props, forwardedRef) => 
 
   const inRange = useDatePicker((state) => {
     if (mode !== "range" || props.disabled) return;
-    const selectedArr = Array.from(state.selected.values());
-    const [start, end] = selectedArr;
+    const [start, end] = Array.from(state.selected.values());
     if (!start && !end) return;
 
     const focusedDate = new Date(state.focused);
@@ -808,15 +807,6 @@ const WeekdaysHeading = React.forwardRef<HTMLDivElement, WeekdaysHeadingProps>((
   );
 });
 
-function useAsRef<T>(data: T) {
-  const ref = React.useRef<T>(data);
-
-  useLayoutEffect(() => {
-    ref.current = data;
-  });
-
-  return ref;
-}
 /* ---------------------------------------------------------------------------------------------- */
 
 const VALUE_ATTR = `data-value`;
@@ -873,9 +863,7 @@ function shouldPreventViewUpdate(
   minDate?: Date,
   maxDate?: Date,
 ) {
-  if (!minDate && !maxDate) return false;
-  if (forward && !maxDate) return false;
-  if (!forward && !minDate) return false;
+  if ((!minDate && !maxDate) || (forward && !maxDate) || (!forward && !minDate)) return false;
 
   if (!forward && isDateInCurrentView(containerRef, minDate)) return true;
   if (forward && isDateInCurrentView(containerRef, maxDate)) return true;
@@ -919,7 +907,7 @@ type MonthYearFormat = `${MonthFormat}${Separator}${YearFormat}`;
 function useDatePicker<T = any>(selector: (state: State) => T) {
   const store = useStore();
   const cb = () => selector(store.snapshot());
-  return React.useSyncExternalStore(store.subscibe, cb, cb);
+  return React.useSyncExternalStore(store.subscribe, cb, cb);
 }
 
 function formatMonthYear(month: number, year: number, format: MonthYearFormat) {
@@ -1018,26 +1006,9 @@ function createMonthProps(month: number, year: number, index: number) {
     : { year, month: month + index };
 }
 
-type MonthDayMap = Record<number, (year?: number) => number[]>;
-
-const MONTH_DAY_MAP: MonthDayMap = {
-  0: () => Array.from({ length: 31 }).map((_, i) => i + 1),
-  1: (year?: number) => Array.from({ length: isLeapYear(year) ? 29 : 28 }).map((_, i) => i + 1),
-  2: () => Array.from({ length: 31 }).map((_, i) => i + 1),
-  3: () => Array.from({ length: 30 }).map((_, i) => i + 1),
-  4: () => Array.from({ length: 31 }).map((_, i) => i + 1),
-  5: () => Array.from({ length: 30 }).map((_, i) => i + 1),
-  6: () => Array.from({ length: 31 }).map((_, i) => i + 1),
-  7: () => Array.from({ length: 31 }).map((_, i) => i + 1),
-  8: () => Array.from({ length: 30 }).map((_, i) => i + 1),
-  9: () => Array.from({ length: 31 }).map((_, i) => i + 1),
-  10: () => Array.from({ length: 30 }).map((_, i) => i + 1),
-  11: () => Array.from({ length: 31 }).map((_, i) => i + 1),
-};
-
 function isLeapYear(year?: number) {
-  if (!year) return;
-  return (year % 4 == 0 && year % 100 != 0) || year % 400 == 0;
+  if (typeof year === "undefined") return;
+  return (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0;
 }
 
 const weekdays = "Sunday_Monday_Tuesday_Wednesday_Thursday_Friday_Saturday".split("_");
@@ -1053,7 +1024,8 @@ function generateWeekdays(startOfWeek: number, short?: boolean) {
 }
 
 function generateDays(month: number, year: number, startOfWeek: number = 1, fixedWeeks?: boolean) {
-  const days = MONTH_DAY_MAP[month](year);
+  const daysInMonth = [31, isLeapYear(year) ? 29 : 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+  const days = Array.from({ length: daysInMonth[month] }, (_, i) => i + 1);
 
   const prevMonthLastDayy = new Date(year, month, 0).getDate();
   const firstWeekdayOfCurrentMonth = new Date(year, month, 1).getDay() || 7;

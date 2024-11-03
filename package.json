@@ -1,13 +1,13 @@
 {
-  "name": "date-picker",
+  "name": "chrono-select-root",
   "private": true,
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "pnpm --filter date-picker build",
-    "dev": "pnpm --filter date-picker build --watch",
-    "website": "pnpm --filter date-picker-website dev",
+    "build": "pnpm --filter chrono-select build",
+    "dev": "pnpm --filter chrono-select build --watch",
+    "website": "pnpm --filter chrono-select-website dev",
     "preinstall": "npx only-allow pnpm",
     "format": "prettier '**/*.{js,jsx,ts,tsx,json,md,mdx,css,scss,yaml,yml}' --write",
     "test:format": "prettier '**/*.{js,jsx,ts,tsx,json,md,mdx,css,scss,yaml,yml}' --check"

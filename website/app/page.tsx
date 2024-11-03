@@ -5,7 +5,7 @@ import Badge from "@/components/badge";
 import CopyIcon from "@/components/icons/Copy";
 import Link from "next/link";
 import GitHubIcon from "@/components/icons/GitHub";
-import { DatePicker } from "date-picker";
+import { DatePicker } from "chrono-select";
 import ModeSwitcher, { ModeContext } from "@/components/mode-switcher";
 import { Mode as TMode } from "@/components/mode-switcher";
 import Heading from "@/components/heading";
@@ -13,7 +13,7 @@ import Separator from "@/components/separator";
 import styles from "../styles/index.module.scss";
 import { cn } from "@/utils/cn";
 import dynamic from "next/dynamic";
-import packageJSON from "../../date-picker/package.json";
+import packageJSON from "../../chrono-select/package.json";
 import datePickerStyles from "../styles/date-picker.module.scss";
 import copy from "copy-to-clipboard";
 
@@ -56,16 +56,16 @@ const Page = () => {
         </span>
 
         <div className="flex flex-col gap-4 sm:flex-row mt-8 justify-between items-center w-full">
-          <Link href="https://github.com/vuukasin/date-picker" className="flex items-center gap-2">
+          <Link href="https://github.com/vuukasin/chrono-select" className="flex items-center gap-2">
             <GitHubIcon />
-            <span className="text-[rgba(227,228,230)] text-[0.875rem]">vuukasin/date-picker</span>
+            <span className="text-[rgba(227,228,230)] text-[0.875rem]">vuukasin/chrono-select</span>
           </Link>
 
           <button
-            onClick={() => copy("npm install <undefined>")}
+            onClick={() => copy("npm install chrono-select")}
             className="bg-[rgba(29,31,36)] text-[0.875rem] text-[#a0a0a0] p-[0px_8px_0px_16px] cursor-copy font-[500] gap-4 flex items-center h-10 rounded-full will-change-transform duration-150"
           >
-            npm install {"<undefined>"}
+            npm install {"chrono-select"}
             <span className="flex items-center justify-center w-7 h-7 rounded-full bg-[#2e2e2e]">
               <CopyIcon />
             </span>
@@ -194,9 +194,7 @@ const Page = () => {
       </section>
 
       <APIReference />
-
       <Parts />
-
       <Styling />
     </main>
   );

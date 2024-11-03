@@ -33,8 +33,8 @@ import {
     createMonthProps,
     generateDays,
     createDayProps,
-} from "date-picker";
-import type { MonthProps } from "date-picker";
+} from "chrono-select";
+import type { MonthProps } from "chrono-select";
 import * as React from "react";
 
 const Month = React.forwardRef<HTMLDivElement, MonthProps>((props, forwardedRef) => {
