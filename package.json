@@ -26,5 +26,8 @@
     "**/*.{js,jsx,ts,tsx,json,md,mdx,css,scss,yaml,yml}": [
       "prettier --write"
     ]
+  },
+  "devDependencies": {
+    "@changesets/cli": "^2.27.9"
   }
 }

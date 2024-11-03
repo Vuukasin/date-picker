@@ -15,11 +15,11 @@
     }
   },
   "scripts": {
-    "prepublishOnly": "cp ../README.md . && pnpm build",
-    "postpublish": "rm README.md",
     "build": "tsup src",
     "dev": "tsup src --watch",
-    "clean": "rm -rf dist node_modules"
+    "clean": "rm -rf dist node_modules",
+    "ci": "pnpm run build",
+    "release": "pnpm run build && changeset publish"
   },
   "keywords": [],
   "author": "",
